@@ -25,6 +25,7 @@ public class OrderService {
 		sortProducts();
 		sortServices();
 		finishOrder() ;
+		menuloop();
 	}
 	
 	private void printMenu() {
