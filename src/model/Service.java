@@ -2,8 +2,9 @@ package model;
 
 public class Service {
 
-	private String name;
-	private int hours, persons;
+	private final String name;
+	private final int hours;
+	private final int persons;
 
 	public Service(String n, int p, int s) {
 		name = n;

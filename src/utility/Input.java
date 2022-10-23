@@ -10,7 +10,7 @@ public class Input {
 	public static boolean readBoolean() {
 		boolean result;
 		try {
-			result = Boolean.valueOf(readString()).booleanValue();
+			result = Boolean.parseBoolean(readString());
 		} catch(NumberFormatException e) {
 			result = false;
 		}
@@ -21,7 +21,7 @@ public class Input {
 	public static double readDouble() {
 		double result;
 		try {
-			result = Double.valueOf(readString()).doubleValue();
+			result = Double.parseDouble(readString());
 		} catch(NumberFormatException e) {
 			result = 0d;
 		}
@@ -32,7 +32,7 @@ public class Input {
 	public static float readFloat() {
 		float result;
 		try {
-			result = Float.valueOf(readString()).floatValue();
+			result = Float.parseFloat(readString());
 		}
 		catch(NumberFormatException e) {
 			result = 0f;
@@ -42,11 +42,11 @@ public class Input {
 	}
 
 	public static int readInt() {
-		int result = 0;
-		String v = null;
+		int result;
+		String v;
 		try {
 			v = readString();
-			result = Integer.decode(v).intValue();
+			result = Integer.decode(v);
 		} catch(NumberFormatException e) {
 			return 0;
 		}
@@ -68,8 +68,8 @@ public class Input {
 
 	// Only for test purposes
 	public static void main(String[] s) {
-		int eingabe = 0;
-		while(eingabe != -1) {
+		int input = 0;
+		while(input != -1) {
 			System.out.print("Enter text: ");
 			System.out.println("Utility.Input was:" + Input.readString());
 			System.out.print("Enter float: ");
@@ -79,8 +79,8 @@ public class Input {
 			System.out.print("Enter boolean: ");
 			System.out.println("Utility.Input was:" + Input.readBoolean());
 			System.out.print("Enter integer number (Cancel with -1): ");
-			eingabe = Input.readInt();
-			System.out.println("Utility.Input was: " + eingabe);
+			input = Input.readInt();
+			System.out.println("Utility.Input was: " + input);
 		}
 	}
 }

@@ -4,8 +4,8 @@ import utility.Input;
 
 public class OrderService {
 
-	private Product[] products = new Product[5];
-	private Service[] services = new Service[5];
+	private final Product[] products = new Product[5];
+	private final Service[] services = new Service[5];
 
 	int productIndex = 0;
 	int serviceIndex = 0;
@@ -78,17 +78,17 @@ public class OrderService {
 	
 	private void finishOrder() {
 		int sum = 0;
-		for (int i = 0; i < products.length; i++) {
-			if (products[i] != null) {
-				System.out.println(products[i] + " = " + formatPrice(products[i].getPrice()));
-				sum += products[i].getPrice();
+		for (Product product : products) {
+			if (product != null) {
+				System.out.println(product + " = " + formatPrice(product.getPrice()));
+				sum += product.getPrice();
 			}
 		}
-		for (int i = 0; i < services.length; i++) {
-			if (services[i] != null) {
-				services[i].print();
-				System.out.println(" = " + formatPrice(services[i].getPrice()));
-				sum += services[i].getPrice();
+		for (Service service : services) {
+			if (service != null) {
+				service.print();
+				System.out.println(" = " + formatPrice(service.getPrice()));
+				sum += service.getPrice();
 			}
 		}
 		System.out.println("Sum: "+ formatPrice(sum));
