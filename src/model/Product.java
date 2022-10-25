@@ -1,6 +1,6 @@
 package model;
 
-public class Product {
+public class Product implements Item {
 
 	private final String name;
 	private final int unitPrice;

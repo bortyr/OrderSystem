@@ -1,6 +1,6 @@
 package model;
 
-public class Service {
+public class Service implements Item {
 
 	private final String name;
 	private final int hours;

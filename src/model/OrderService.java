@@ -4,11 +4,15 @@ import utility.Input;
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Comparator;
 
+interface Item {
+	String getName();
+	int getPrice();
+}
 class Order {
-
-	public ArrayList<Product> products = new ArrayList<>();
-	public ArrayList<Service> services = new ArrayList<>();
-
+	public ArrayList<Item> items = new ArrayList<>();
+	private final java.util.Date date = new java.util.Date();
+	private int sum = 0;
+	public java.util.Date getDate() {return date;}
 	public void orderProduct() {
 		System.out.println("Name: ");
 		String l = Input.readString();
@@ -17,7 +21,7 @@ class Order {
 		System.out.println("Quantity: ");
 		int s = Input.readInt();
 		Product product = new Product(l, p, s) ;
-		products.add(product);
+		items.add(product);
 	}
 	public void orderService() {
 		System.out.println("Name: ");
@@ -27,34 +31,27 @@ class Order {
 		System.out.println("Hours: ");
 		int s = Input.readInt();
 		Service service = new Service(l, p, s) ;
-		services.add(service);
+		items.add(service);
 	}
-	public void finishOrder() {
 
-		products.sort(Comparator.comparing(Product::getPrice));
-		services.sort(Comparator.comparing(Service::getPrice));
-
-		int sum = 0;
-		for (Product product : products) {
-			if (product != null) {
-				System.out.println(product + " = " + formatPrice(product.getPrice()));
-				sum += product.getPrice();
+	public int getSum() {
+		for (Item item : items) {
+			if (item != null) {
+				System.out.println(item.getName() + " = " + formatPrice(item.getPrice()));
+				sum += item.getPrice();
 			}
 		}
-		for (Service service : services) {
-			if (service != null) {
-				service.print();
-				System.out.println(" = " + formatPrice(service.getPrice()));
-				sum += service.getPrice();
-			}
-		}
-		System.out.println("Sum: "+ formatPrice(sum));
+		return sum;
 	}
 	private String formatPrice(int priceInCent) {
 		return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
 				+ priceInCent % 100 + " EUR";
 	}
-
+	public void finishOrder() {
+		items.sort(Comparator.comparing(Item::getPrice));
+		System.out.println("Sum: "+ formatPrice(getSum()));
+		System.out.println("Date: "+ getDate());
+	}
 }
 
 public class OrderService {
