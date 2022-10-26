@@ -55,8 +55,8 @@ class Order {
 }
 
 public class OrderService {
-	private final Order order = new Order();
 	public void menuloop() {
+		Order order = new Order();
 		int input;
 		do {
 			printMenu();
