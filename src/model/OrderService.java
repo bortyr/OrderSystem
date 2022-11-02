@@ -9,6 +9,7 @@ interface Item {
 	String getName();
 	int getPrice();
 }
+
 class Order {
 	public ArrayList<Item> items = new ArrayList<>();
 	private final java.util.Date date = new java.util.Date();
@@ -16,9 +17,9 @@ class Order {
 	private final ItemFactory Factory = new SimpleItemFactory();
 	public java.util.Date getDate() {return date;}
 
-	public void orderItem(String type) {
-		switch (type) {
-			case "PRODUCT" -> {
+	public void orderItem(ItemType itype) {
+		switch (itype) {
+			case PRODUCT -> {
 				System.out.println("Name: ");
 				String name = Input.readString();
 				System.out.println("Unit price (in cents): ");
@@ -28,7 +29,7 @@ class Order {
 				Item product = Factory.createProduct(name, price, quantity);
 				items.add(product);
 			}
-			case "SERVICE" -> {
+			case SERVICE -> {
 				System.out.println("Name: ");
 				String name = Input.readString();
 				System.out.println("Number of persons: ");
@@ -70,8 +71,8 @@ public class OrderService {
 			input = Input.readInt();
 			switch ( input ) {
 				case 0: break ;
-				case 1: order.orderItem("PRODUCT"); break ;
-				case 2: order.orderItem("SERVICE"); break ;
+				case 1: order.orderItem(ItemType.PRODUCT); break ;
+				case 2: order.orderItem(ItemType.SERVICE); break ;
 				default: System.out.println("invalid" ); break ;
 			}
 		} while( input != 0);
