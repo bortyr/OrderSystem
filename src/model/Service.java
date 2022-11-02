@@ -17,10 +17,8 @@ public class Service implements Item {
 	}
 
 	public int getPrice() {
-		return 1242 * hours * persons;
+		int rate = 1242;
+		return rate * hours * persons;
 	}
 
-	public void print() {
-		System.out.println(persons + " persons for " + hours + "h of " + getName());
-	}
 }

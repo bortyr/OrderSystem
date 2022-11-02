@@ -20,23 +20,23 @@ class Order {
 		switch (type) {
 			case "PRODUCT":
 				System.out.println("Name: ");
-				String l = Input.readString();
+				String name = Input.readString();
 				System.out.println("Unit price (in cents): ");
-				int p = Input.readInt();
+				int price = Input.readInt();
 				System.out.println("Quantity: ");
-				int s = Input.readInt();
-				Item x = Factory.createProduct(l, p, s);
-				items.add(x);
+				int quantity = Input.readInt();
+				Item product = Factory.createProduct(name, price, quantity);
+				items.add(product);
 				break;
 			case "SERVICE":
 				System.out.println("Name: ");
-				l = Input.readString();
+				name = Input.readString();
 				System.out.println("Number of persons: ");
-				p = Input.readInt();
+				int persons = Input.readInt();
 				System.out.println("Hours: ");
-				s = Input.readInt();
-				x = Factory.createService(l, p, s);
-				items.add(x);
+				int hours = Input.readInt();
+				Item service = Factory.createService(name, hours, persons);
+				items.add(service);
 
 				break;
 		}
