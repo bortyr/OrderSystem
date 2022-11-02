@@ -3,6 +3,7 @@ package model;
 import utility.Input;
 import java.util.ArrayList; // import the ArrayList class
 import java.util.Comparator;
+import java.util.Objects;
 
 interface Item {
 	String getName();
@@ -12,26 +13,33 @@ class Order {
 	public ArrayList<Item> items = new ArrayList<>();
 	private final java.util.Date date = new java.util.Date();
 	private int sum = 0;
+	private ItemFactory Factory = new SimpleItemFactory();
 	public java.util.Date getDate() {return date;}
-	public void orderProduct() {
-		System.out.println("Name: ");
-		String l = Input.readString();
-		System.out.println("Unit price (in cents): ");
-		int p = Input.readInt();
-		System.out.println("Quantity: ");
-		int s = Input.readInt();
-		Product product = new Product(l, p, s) ;
-		items.add(product);
-	}
-	public void orderService() {
-		System.out.println("Name: ");
-		String l = Input.readString();
-		System.out.println("Number of persons: ");
-		int p = Input.readInt();
-		System.out.println("Hours: ");
-		int s = Input.readInt();
-		Service service = new Service(l, p, s) ;
-		items.add(service);
+
+	public void orderItem(String type) {
+		switch (type) {
+			case "PRODUCT":
+				System.out.println("Name: ");
+				String l = Input.readString();
+				System.out.println("Unit price (in cents): ");
+				int p = Input.readInt();
+				System.out.println("Quantity: ");
+				int s = Input.readInt();
+				Item x = Factory.createProduct(l, p, s);
+				items.add(x);
+				break;
+			case "SERVICE":
+				System.out.println("Name: ");
+				l = Input.readString();
+				System.out.println("Number of persons: ");
+				p = Input.readInt();
+				System.out.println("Hours: ");
+				s = Input.readInt();
+				x = Factory.createService(l, p, s);
+				items.add(x);
+
+				break;
+		}
 	}
 
 	public int getSum() {
@@ -63,8 +71,8 @@ public class OrderService {
 			input = Input.readInt();
 			switch ( input ) {
 				case 0: break ;
-				case 1: order.orderProduct(); break ;
-				case 2: order.orderService(); break ;
+				case 1: order.orderItem("PRODUCT"); break ;
+				case 2: order.orderItem("SERVICE"); break ;
 				default: System.out.println("invalid" ); break ;
 			}
 		} while( input != 0);
