@@ -49,9 +49,9 @@ public class Order {
         return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
                 + priceInCent % 100 + " EUR";
     }
+
+    // finishOrder() - sort the order according to price
     public void finishOrder() {
         items.sort(Comparator.comparing(Item::getPrice));
-        System.out.println("Sum: "+ formatPrice(getSum()));
-        System.out.println("Date: "+ getDate());
     }
 }
