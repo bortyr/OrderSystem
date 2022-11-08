@@ -6,44 +6,43 @@ import java.util.Comparator;
 
 public class Order {
     public ArrayList<Item> items = new ArrayList<>();
-    private final java.util.Date date = new java.util.Date();
-    private int sum = 0;
-    private final ItemFactory Factory = new SimpleItemFactory();
-    public java.util.Date getDate() {return date;}
 
-    public void orderItem(ItemType itype) {
+    private int sum = 0;
+    private String FormatedSum = "0";
+    private final ItemFactory Factory = new SimpleItemFactory();
+
+
+    public void orderItem(ItemType itype, String name, int value1, int value2) {
         switch (itype) {
             case PRODUCT -> {
-                System.out.println("Name: ");
-                String name = Input.readString();
-                System.out.println("Unit price (in cents): ");
-                int price = Input.readInt();
-                System.out.println("Quantity: ");
-                int quantity = Input.readInt();
-                Item product = Factory.createProduct(name, price, quantity);
+                Item product = Factory.createProduct(name, value1, value2);
                 items.add(product);
             }
             case SERVICE -> {
-                System.out.println("Name: ");
-                String name = Input.readString();
-                System.out.println("Number of persons: ");
-                int persons = Input.readInt();
-                System.out.println("Hours: ");
-                int hours = Input.readInt();
-                Item service = Factory.createService(name, hours, persons);
+                Item service = Factory.createService(name, value1, value2);
                 items.add(service);
             }
         }
     }
 
-    public int getSum() {
+    public String getItem() {
+        String string1 = "0";
         for (Item item : items) {
             if (item != null) {
-                System.out.println(item.getName() + " = " + formatPrice(item.getPrice()));
-                sum += item.getPrice();
+                string1 = item.getName() + " = " + formatPrice(item.getPrice());
             }
         }
-        return sum;
+        return string1;
+    }
+
+    public String getSum() {
+        for (Item item : items) {
+            if (item != null) {
+                sum += item.getPrice();
+                FormatedSum = formatPrice(sum);
+            }
+        }
+        return FormatedSum;
     }
     private String formatPrice(int priceInCent) {
         return (priceInCent / 100) + "." + (priceInCent % 100 < 10 ? "0" : "")
@@ -51,7 +50,8 @@ public class Order {
     }
 
     // finishOrder() - sort the order according to price
-    public void finishOrder() {
+
+    public void sorting() {
         items.sort(Comparator.comparing(Item::getPrice));
     }
 }
