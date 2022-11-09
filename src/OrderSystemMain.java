@@ -1,8 +1,11 @@
 import model.OrderService;
+import UI.CLI;
 
 public class OrderSystemMain {
 	public static void main(String[] args) {
-		OrderService orderService = new OrderService();
-		orderService.menuloop();
+
+		CLI cli = new CLI();
+		cli.menuloop();
+
 	}
 }
