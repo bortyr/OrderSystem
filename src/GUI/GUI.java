@@ -42,8 +42,8 @@ public class GUI{
         private JButton buttonAddService;
         private JButton buttonFinnishOrder;
         private JButton buttonRemoveOrders;
-        private JTextArea shoppingList;
-        private JTextArea checkOut;
+        private JTextArea textShoppingList;
+        private JTextArea textCheckOut;
         private JButton productClear;
         private JButton serviceClear;
         private JButton buttonClearCart;
@@ -103,11 +103,13 @@ public class GUI{
                 labelServiceHours = new JLabel("Hours: ");
                 buttonAddService = new JButton("Add Service");
 
-                shoppingList = new JTextArea();
-                shoppingList.setText("Current Cart:\n");
+                textShoppingList = new JTextArea();
+                textShoppingList.setEditable(false);
+                textShoppingList.setText("Current Cart:\n");
 
-                checkOut = new JTextArea();
-                checkOut.setBounds(500, 0,300,500);
+                textCheckOut = new JTextArea();
+                textCheckOut.setEditable(false);
+                textCheckOut.setBounds(500, 0,300,500);
 
                 //Finnish Order Button
                 buttonFinnishOrder = new JButton("Finnish Order");
@@ -135,8 +137,8 @@ public class GUI{
                 servicePanel.add(buttonAddService);
 
                 //Shopping List and Check out
-                shoppingListPanel.add(shoppingList);
-                checkOutPanel.add(checkOut);
+                shoppingListPanel.add(textShoppingList);
+                checkOutPanel.add(textCheckOut);
 
                 //FinishOrderButton
                 orderButtonsPanel.add(buttonFinnishOrder);
@@ -160,7 +162,7 @@ public class GUI{
                                 int quantity = Integer.parseInt(textProductQuantity.getText());
                                 int price = Integer.parseInt(textProductPrice.getText());
                                 //Change setText to append to extend the shopping cart
-                                shoppingList.setText("Current Cart:\n"+name+", "+quantity+"pcs, "+price+"€");
+                                textShoppingList.setText("Current Cart:\n"+name+", "+quantity+"pcs, "+price+"€");
                                 orderService.processOrder(PRODUCT, name, price, quantity);
                         }
                 });
@@ -181,7 +183,7 @@ public class GUI{
                                 int personel = Integer.parseInt(textServicePersonel.getText());
                                 int hours = Integer.parseInt(textServiceHours.getText());
                                 //Change setText to append to extend the shopping cart
-                                shoppingList.setText("Current Cart:\n"+serviceName+", "+personel+"persons, "+hours+"h");
+                                textShoppingList.setText("Current Cart:\n"+serviceName+", "+personel+"persons, "+hours+"h");
                                 orderService.processOrder(SERVICE, serviceName, personel, hours);
                         }
                 });
@@ -195,7 +197,7 @@ public class GUI{
                                 ArrayList<Order> orders = orderService.ordersDbread();
                                 for (var o : orders) {
 
-                                        checkOut.append("Order[" + counter + "]\n" + o.getItem() + "\n"
+                                        textCheckOut.append("Order[" + counter + "]\n" + o.getItem() + "\n"
                                                 + "Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
                                         counter++;
                                 }
@@ -207,8 +209,8 @@ public class GUI{
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 orderService.DeleteDb();
-                                checkOut.setText("");
-                                shoppingList.setText("Current Cart:\n");
+                                textCheckOut.setText("");
+                                textShoppingList.setText("Current Cart:\n");
                         }
                 });
 
@@ -233,7 +235,7 @@ public class GUI{
                 buttonClearCart.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                                shoppingList.setText("Current Cart:\n");
+                                textShoppingList.setText("Current Cart:\n");
                         }
                 });
 
