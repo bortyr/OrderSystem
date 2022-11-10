@@ -29,7 +29,7 @@ public class Order {
         String string1 = "0";
         for (Item item : items) {
             if (item != null) {
-                string1 = item.getName() + " = " + formatPrice(item.getPrice());
+                string1 = string1 + item.getName() + " = " + formatPrice(item.getPrice()) +"\n";
             }
         }
         return string1;

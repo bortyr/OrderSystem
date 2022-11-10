@@ -6,8 +6,8 @@ public class OrderSystemMain {
 	public static void main(String[] args) {
 		GUI gui = new GUI();
 		gui.startGui();
-		//CLI cli = new CLI();
-		//cli.menuloop();
+//		CLI cli = new CLI();
+//		cli.menuloop();
 
 	}
 }

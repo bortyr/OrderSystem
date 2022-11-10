@@ -196,16 +196,11 @@ public class GUI{
                                 int counter = 0;
                                 ArrayList<Order> orders = orderService.ordersDbread();
                                 for (var o : orders) {
-
-                                        textCheckOut.append("Order[" + counter + "]\n");
-
-
-//                                        (o.getItem() + "\n");
-
-                                        textCheckOut.append("Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
+                                        textCheckOut.append("Order[" + counter + "]\n"+ o.getItem() + "\n" +"Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
                                         counter++;
                                 }
                                 orderService.newOrder();
+                                textShoppingList.setText("Current Cart:\n");
                         }
                 });
 
