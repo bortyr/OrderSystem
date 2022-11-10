@@ -43,7 +43,9 @@ public class GUI{
         private JButton buttonFinishOrder;
         private JButton buttonRemoveOrders;
         private JTextArea textShoppingList;
+        private JScrollPane paneShoppingList;
         private JTextArea textCheckOut;
+        private JScrollPane paneCheckOut;
         private JButton buttonProductClear;
         private JButton buttonServiceClear;
 //        private JButton buttonClearCart;
@@ -104,10 +106,12 @@ public class GUI{
                 buttonAddService = new JButton("Add Service");
 
                 textShoppingList = new JTextArea();
+                paneShoppingList = new JScrollPane(textShoppingList);
                 textShoppingList.setEditable(false);
                 textShoppingList.setText("Current Cart:\n");
 
                 textCheckOut = new JTextArea();
+                paneCheckOut = new JScrollPane(textCheckOut);
                 textCheckOut.setEditable(false);
                 textCheckOut.setBounds(500, 0,300,500);
 
@@ -137,8 +141,8 @@ public class GUI{
                 servicePanel.add(buttonAddService);
 
                 //Shopping List and Check out
-                shoppingListPanel.add(textShoppingList);
-                checkOutPanel.add(textCheckOut);
+                shoppingListPanel.add(paneShoppingList);
+                checkOutPanel.add(paneCheckOut);
 
                 //FinishOrderButton
                 orderButtonsPanel.add(buttonFinishOrder);
