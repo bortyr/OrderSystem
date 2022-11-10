@@ -40,13 +40,13 @@ public class GUI{
         private JLabel labelServiceHours;
         private JButton buttonAddProduct;
         private JButton buttonAddService;
-        private JButton buttonFinnishOrder;
+        private JButton buttonFinishOrder;
         private JButton buttonRemoveOrders;
         private JTextArea textShoppingList;
         private JTextArea textCheckOut;
-        private JButton productClear;
-        private JButton serviceClear;
-        private JButton buttonClearCart;
+        private JButton buttonProductClear;
+        private JButton buttonServiceClear;
+//        private JButton buttonClearCart;
 
 
         public void startGui(){
@@ -71,8 +71,8 @@ public class GUI{
                 shoppingListPanel.setBounds(0,0,500,300);
                 shoppingListPanel.setLayout(new BorderLayout(10,10));
 
-                productClear = new JButton("Clear");
-                serviceClear = new JButton("Clear");
+                buttonProductClear = new JButton("Clear");
+                buttonServiceClear = new JButton("Clear");
 
                 frame = new JFrame();
                 frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,10 +111,10 @@ public class GUI{
                 textCheckOut.setEditable(false);
                 textCheckOut.setBounds(500, 0,300,500);
 
-                //Finnish Order Button
-                buttonFinnishOrder = new JButton("Finnish Order");
+                //Finish Order Button
+                buttonFinishOrder = new JButton("Finish Order");
                 buttonRemoveOrders = new JButton("Remove Orders");
-                buttonClearCart = new JButton("Clear Cart");
+//                buttonClearCart = new JButton("Clear Cart");
 
                 //Panel .add Product
                 productPanel.add(labelProductName);
@@ -123,7 +123,7 @@ public class GUI{
                 productPanel.add(textProductQuantity);
                 productPanel.add(labelProductPrice);
                 productPanel.add(textProductPrice);
-                productPanel.add(productClear);
+                productPanel.add(buttonProductClear);
                 productPanel.add(buttonAddProduct);
 
                 //Panel .add Service
@@ -133,7 +133,7 @@ public class GUI{
                 servicePanel.add(textServicePersonel);
                 servicePanel.add(labelServiceHours);
                 servicePanel.add(textServiceHours);
-                servicePanel.add(serviceClear);
+                servicePanel.add(buttonServiceClear);
                 servicePanel.add(buttonAddService);
 
                 //Shopping List and Check out
@@ -141,9 +141,9 @@ public class GUI{
                 checkOutPanel.add(textCheckOut);
 
                 //FinishOrderButton
-                orderButtonsPanel.add(buttonFinnishOrder);
+                orderButtonsPanel.add(buttonFinishOrder);
                 orderButtonsPanel.add(buttonRemoveOrders);
-                orderButtonsPanel.add(buttonClearCart);
+//                orderButtonsPanel.add(buttonClearCart);
 
                 //Product Button Action
                 buttonAddProduct.addActionListener(new ActionListener() {
@@ -162,7 +162,7 @@ public class GUI{
                                 int quantity = Integer.parseInt(textProductQuantity.getText());
                                 int price = Integer.parseInt(textProductPrice.getText());
                                 //Change setText to append to extend the shopping cart
-                                textShoppingList.setText("Current Cart:\n"+name+", "+quantity+"pcs, "+price+"€");
+                                textShoppingList.append(name+", "+quantity+" pcs, "+"€"+price+"\n");
                                 orderService.processOrder(PRODUCT, name, price, quantity);
                         }
                 });
@@ -183,13 +183,13 @@ public class GUI{
                                 int personel = Integer.parseInt(textServicePersonel.getText());
                                 int hours = Integer.parseInt(textServiceHours.getText());
                                 //Change setText to append to extend the shopping cart
-                                textShoppingList.setText("Current Cart:\n"+serviceName+", "+personel+"persons, "+hours+"h");
+                                textShoppingList.append(serviceName+", "+personel+" person/s, "+hours+"h\n");
                                 orderService.processOrder(SERVICE, serviceName, personel, hours);
                         }
                 });
 
-                //FinnishOrder Button Action
-                buttonFinnishOrder.addActionListener(new ActionListener() {
+                //Finish Order Button Action
+                buttonFinishOrder.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 orderService.finishOrder();
@@ -197,8 +197,12 @@ public class GUI{
                                 ArrayList<Order> orders = orderService.ordersDbread();
                                 for (var o : orders) {
 
-                                        textCheckOut.append("Order[" + counter + "]\n" + o.getItem() + "\n"
-                                                + "Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
+                                        textCheckOut.append("Order[" + counter + "]\n");
+
+
+//                                        (o.getItem() + "\n");
+
+                                        textCheckOut.append("Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
                                         counter++;
                                 }
                                 orderService.newOrder();
@@ -214,7 +218,7 @@ public class GUI{
                         }
                 });
 
-                productClear.addActionListener(new ActionListener() {
+                buttonProductClear.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 textProductName.setText("");
@@ -223,7 +227,7 @@ public class GUI{
                         }
                 });
 
-                serviceClear.addActionListener(new ActionListener() {
+                buttonServiceClear.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 textServiceName.setText("");
@@ -232,12 +236,12 @@ public class GUI{
                         }
                 });
 
-                buttonClearCart.addActionListener(new ActionListener() {
-                        @Override
-                        public void actionPerformed(ActionEvent e) {
-                                textShoppingList.setText("Current Cart:\n");
-                        }
-                });
+//                buttonClearCart.addActionListener(new ActionListener() {
+//                        @Override
+//                        public void actionPerformed(ActionEvent e) {
+//                                textShoppingList.setText("Current Cart:\n");
+//                        }
+//                });
 
                 frame.setVisible(true);
         }
@@ -268,4 +272,8 @@ public class GUI{
                                 break;
                 }
         }
+
+
+
+
 }
