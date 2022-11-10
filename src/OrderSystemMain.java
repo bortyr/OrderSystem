@@ -1,11 +1,13 @@
+import GUI.GUI;
 import model.OrderService;
 import UI.CLI;
 
 public class OrderSystemMain {
 	public static void main(String[] args) {
-
-		CLI cli = new CLI();
-		cli.menuloop();
+		GUI gui = new GUI();
+		gui.startGui();
+		//CLI cli = new CLI();
+		//cli.menuloop();
 
 	}
 }
