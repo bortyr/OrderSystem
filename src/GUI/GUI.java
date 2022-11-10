@@ -47,11 +47,10 @@ public class GUI{
         private JButton productClear;
         private JButton serviceClear;
         private JButton buttonClearCart;
-        float   cartPrice;
 
 
         public void startGui(){
-                cartPrice =0;
+
                 productPanel = new JPanel();
                 productPanel.setBounds(0, 300, 250, 400);
                 productPanel.setLayout(new GridLayout(4,2));
@@ -104,8 +103,6 @@ public class GUI{
                 labelServiceHours = new JLabel("Hours: ");
                 buttonAddService = new JButton("Add Service");
 
-
-
                 shoppingList = new JTextArea();
                 shoppingList.setText("Current Cart:\n");
 
@@ -151,10 +148,19 @@ public class GUI{
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 String name = textProductName.getText();
+
+                                if(!checkForInt(textProductQuantity.getText())){
+                                        checkForIntFailed(2);
+                                        return;
+                                }
+                                if(!checkForInt(textProductPrice.getText())){
+                                        checkForIntFailed(3);
+                                        return;
+                                }
                                 int quantity = Integer.parseInt(textProductQuantity.getText());
                                 int price = Integer.parseInt(textProductPrice.getText());
                                 //Change setText to append to extend the shopping cart
-                                shoppingList.setText(name+", "+quantity+"pcs, "+price+"€");
+                                shoppingList.setText("Current Cart:\n"+name+", "+quantity+"pcs, "+price+"€");
                                 orderService.processOrder(PRODUCT, name, price, quantity);
                         }
                 });
@@ -164,10 +170,18 @@ public class GUI{
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 String serviceName = textServiceName.getText();
+                                if(!checkForInt(textServicePersonel.getText())){
+                                        checkForIntFailed(0);
+                                        return;
+                                }
+                                if(!checkForInt(textServiceHours.getText())){
+                                        checkForIntFailed(1);
+                                        return;
+                                }
                                 int personel = Integer.parseInt(textServicePersonel.getText());
                                 int hours = Integer.parseInt(textServiceHours.getText());
                                 //Change setText to append to extend the shopping cart
-                                shoppingList.append(serviceName+", "+personel+"persons, "+hours+"h");
+                                shoppingList.setText("Current Cart:\n"+serviceName+", "+personel+"persons, "+hours+"h");
                                 orderService.processOrder(SERVICE, serviceName, personel, hours);
                         }
                 });
@@ -220,10 +234,36 @@ public class GUI{
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 shoppingList.setText("Current Cart:\n");
-                                cartPrice = 0;
                         }
                 });
 
                 frame.setVisible(true);
+        }
+
+        public boolean checkForInt(String inputParameter){
+                try{
+                        Integer.parseInt(inputParameter);
+                        return true;
+                } catch (NumberFormatException ex){
+                        return false;
+                }
+
+        }
+
+        public void checkForIntFailed(int i){
+                switch (i) {
+                        case 0:
+                                textServicePersonel.setText("Error: Integer required");
+                                break;
+                        case 1:
+                                textServiceHours.setText("Error: Integer required");
+                                break;
+                        case 2:
+                                textProductQuantity.setText("Error: Integer required");
+                                break;
+                        case 3:
+                                textProductPrice.setText("Error: Integer required");
+                                break;
+                }
         }
 }
