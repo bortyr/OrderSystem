@@ -26,7 +26,7 @@ public class Order {
     }
 
     public String getItem() {
-        String string1 = "0";
+        String string1 = "";
         for (Item item : items) {
             if (item != null) {
                 string1 = string1 + item.getName() + " = " + formatPrice(item.getPrice()) +"\n";

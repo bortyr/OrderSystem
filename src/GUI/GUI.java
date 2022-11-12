@@ -198,6 +198,7 @@ public class GUI{
                         public void actionPerformed(ActionEvent e) {
                                 orderService.finishOrder();
                                 int counter = 0;
+                                textCheckOut.setText("");
                                 ArrayList<Order> orders = orderService.ordersDbread();
                                 for (var o : orders) {
                                         textCheckOut.append("Order[" + counter + "]\n"+ o.getItem() + "\n" +"Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
