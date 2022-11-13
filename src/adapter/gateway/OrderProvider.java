@@ -1,4 +1,6 @@
-package model;
+package adapter.gateway;
+
+import entities.Order;
 
 import java.util.ArrayList;
 

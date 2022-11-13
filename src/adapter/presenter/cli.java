@@ -1,11 +1,13 @@
-package UI;
+package adapter.presenter;
 
-import model.*;
+import entities.ItemType;
+import entities.Order;
+import usecase.OrderService;
 import utility.Input;
 
 import java.util.ArrayList;
 
-public class CLI {
+public class cli {
     OrderService orderService = new OrderService();
     private final java.util.Date date = new java.util.Date();
     public java.util.Date getDate() {return date;}

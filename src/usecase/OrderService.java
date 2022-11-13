@@ -1,10 +1,10 @@
-package model;
+package usecase;
 
-import UI.CLI;
-import utility.Input;
+import entities.ItemType;
+import entities.Order;
+import adapter.gateway.OrderProvider;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 
 public class OrderService {

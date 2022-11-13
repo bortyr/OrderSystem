@@ -1,10 +1,8 @@
-import GUI.GUI;
-import model.OrderService;
-import UI.CLI;
+import adapter.presenter.gui;
 
 public class OrderSystemMain {
 	public static void main(String[] args) {
-		GUI gui = new GUI();
+		gui gui = new gui();
 		gui.startGui();
 //		CLI cli = new CLI();
 //		cli.menuloop();

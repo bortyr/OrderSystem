@@ -1,18 +1,18 @@
-package GUI;
+package adapter.presenter;
 
 
-import model.Order;
-import model.OrderService;
+import entities.Order;
+import usecase.OrderService;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static model.ItemType.PRODUCT;
-import static model.ItemType.SERVICE;
+import static entities.ItemType.PRODUCT;
+import static entities.ItemType.SERVICE;
 
-public class GUI{
+public class gui {
 
         OrderService orderService = new OrderService();
         private final java.util.Date date = new java.util.Date();

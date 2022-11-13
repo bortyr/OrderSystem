@@ -1,6 +1,5 @@
-package model;
+package entities;
 
-import utility.Input;
 import java.util.ArrayList;
 import java.util.Comparator;
 
