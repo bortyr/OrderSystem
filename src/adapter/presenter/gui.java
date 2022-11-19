@@ -1,8 +1,11 @@
 package adapter.presenter;
 
 
+import adapter.gateway.OrderProvider;
 import entities.Order;
 import usecase.OrderService;
+import usecase.OrderStructure;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +18,9 @@ import static entities.ItemType.SERVICE;
 public class gui {
 
         OrderService orderService = new OrderService();
+        OrderProvider ordersDb = new OrderProvider();
+
+        OrderStructure orderStructure = new OrderStructure();
         private final java.util.Date date = new java.util.Date();
         public java.util.Date getDate() {return date;}
         private JFrame frame;
@@ -197,25 +203,28 @@ public class gui {
                         @Override
                         public void actionPerformed(ActionEvent e) {
                                 orderService.finishOrder();
+
+                                orderStructure.create(orderService.getOrder());
+                                ordersDb.create(orderStructure);
                                 int counter = 0;
                                 textCheckOut.setText("");
                                 // TODO: implement <<Data Structure>> class for use here between UI & usecase
-                                /*
-                                ArrayList<Order> orders = orderService.ordersDbRead();
+
+                                ArrayList<Order> orders = ordersDb.read();
                                 for (var o : orders) {
                                         textCheckOut.append("Order[" + counter + "]\n"+ o.getItem() + "\n" +"Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
                                         counter++;
                                 }
                                 orderService.newOrder();
                                 textShoppingList.setText("Current Cart:\n");
-                                 */
+
                         }
                 });
 
                 buttonRemoveOrders.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                                //orderService.DeleteDb();
+                                ordersDb.delete();
                                 textCheckOut.setText("");
                                 textShoppingList.setText("Current Cart:\n");
                         }
@@ -251,7 +260,7 @@ public class gui {
 
         public boolean checkForInt(String inputParameter){
                 try{
-                        Integer.parseInt(inputParameter);
+                        if(Integer.parseInt(inputParameter)<=0) {return false;}
                         return true;
                 } catch (NumberFormatException ex){
                         return false;
@@ -260,6 +269,7 @@ public class gui {
         }
 
         public void checkForIntFailed(int i){
+                JOptionPane.showMessageDialog(frame, "Wrong input");
                 switch (i) {
                         case 0:
                                 textServicePersonel.setText("Error: Integer required");
