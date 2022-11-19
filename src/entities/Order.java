@@ -25,13 +25,13 @@ public class Order {
     }
 
     public String getItem() {
-        String string1 = "";
+        StringBuilder string1 = new StringBuilder();
         for (Item item : items) {
             if (item != null) {
-                string1 = string1 + item.getName() + " = " + formatPrice(item.getPrice()) +"\n";
+                string1.append(item.getName()).append(" = ").append(formatPrice(item.getPrice())).append("\n");
             }
         }
-        return string1;
+        return string1.toString();
     }
 
     public String getSum() {
