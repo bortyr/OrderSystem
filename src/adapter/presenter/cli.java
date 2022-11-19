@@ -1,14 +1,20 @@
 package adapter.presenter;
 
+import adapter.gateway.OrderProvider;
 import entities.ItemType;
 import entities.Order;
 import usecase.OrderService;
+import usecase.OrderStructure;
 import utility.Input;
 
 import java.util.ArrayList;
 
+@SuppressWarnings("InfiniteLoopStatement")
 public class cli {
     OrderService orderService = new OrderService();
+    OrderProvider ordersDb = new OrderProvider();
+    OrderStructure orderStructure = new OrderStructure();
+
     private final java.util.Date date = new java.util.Date();
     public java.util.Date getDate() {return date;}
 
@@ -21,9 +27,11 @@ public class cli {
             switch (input) {
                 case 0 -> {
                     orderService.finishOrder();
+                    orderStructure.create(orderService.getOrder());
+                    ordersDb.create(orderStructure);
                     System.out.println("Current Orders:\n");
                     int counter = 0;
-                    ArrayList<Order> orders = orderService.ordersDbread();
+                    ArrayList<Order> orders = ordersDb.read();
                     for (var o : orders) {
                         System.out.print("Order[" + counter + "]\n");
                         System.out.print(o.getItem() + "\n");
@@ -35,7 +43,7 @@ public class cli {
                 }
                 case 1 -> CreateItem(ItemType.PRODUCT);
                 case 2 -> CreateItem(ItemType.SERVICE);
-                case 3 -> orderService.DeleteDb();
+                case 3 -> ordersDb.delete();
                 default -> System.out.println("invalid");
             }
         }

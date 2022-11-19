@@ -1,6 +1,7 @@
 package adapter.gateway;
 
 import entities.Order;
+import usecase.OrderStructure;
 
 import java.util.ArrayList;
 
@@ -9,8 +10,8 @@ public class OrderProvider implements OrderRepository {
     private final ArrayList<Order> orders = new ArrayList<>();
 
     // create() - add order to collection of orders
-    public void create(Order order) {
-        orders.add(order);
+    public void create(OrderStructure orderStructure) {
+        orders.add(orderStructure.get());
     }
 
     // read() - return collection of orders

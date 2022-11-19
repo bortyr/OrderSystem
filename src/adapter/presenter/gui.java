@@ -199,20 +199,23 @@ public class gui {
                                 orderService.finishOrder();
                                 int counter = 0;
                                 textCheckOut.setText("");
-                                ArrayList<Order> orders = orderService.ordersDbread();
+                                // TODO: implement <<Data Structure>> class for use here between UI & usecase
+                                /*
+                                ArrayList<Order> orders = orderService.ordersDbRead();
                                 for (var o : orders) {
                                         textCheckOut.append("Order[" + counter + "]\n"+ o.getItem() + "\n" +"Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
                                         counter++;
                                 }
                                 orderService.newOrder();
                                 textShoppingList.setText("Current Cart:\n");
+                                 */
                         }
                 });
 
                 buttonRemoveOrders.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                                orderService.DeleteDb();
+                                //orderService.DeleteDb();
                                 textCheckOut.setText("");
                                 textShoppingList.setText("Current Cart:\n");
                         }
