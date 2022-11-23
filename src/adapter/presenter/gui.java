@@ -55,7 +55,7 @@ public class gui {
         private JButton buttonProductClear;
         private JButton buttonServiceClear;
 //        private JButton buttonClearCart;
-
+        private int itemsInCart;
 
         public void startGui(){
 
@@ -174,6 +174,7 @@ public class gui {
                                 //Change setText to append to extend the shopping cart
                                 textShoppingList.append(name+", "+quantity+" pcs, "+"€"+price+"\n");
                                 orderService.processOrder(PRODUCT, name, price, quantity);
+                                itemsInCart++;
                         }
                 });
 
@@ -195,6 +196,7 @@ public class gui {
                                 //Change setText to append to extend the shopping cart
                                 textShoppingList.append(serviceName+", "+personel+" person/s, "+hours+"h\n");
                                 orderService.processOrder(SERVICE, serviceName, personel, hours);
+                                itemsInCart++;
                         }
                 });
 
@@ -202,22 +204,28 @@ public class gui {
                 buttonFinishOrder.addActionListener(new ActionListener() {
                         @Override
                         public void actionPerformed(ActionEvent e) {
-                                orderService.finishOrder();
-
-                                orderStructure.create(orderService.getOrder());
-                                ordersDb.create(orderStructure);
-                                int counter = 0;
-                                textCheckOut.setText("");
-                                // TODO: implement <<Data Structure>> class for use here between UI & usecase
-
-                                ArrayList<Order> orders = ordersDb.read();
-                                for (var o : orders) {
-                                        textCheckOut.append("Order[" + counter + "]\n"+ o.getItem() + "\n" +"Sum:  " + o.getSum() + "\n"+ "Date: " + getDate() + "\n\n");
-                                        counter++;
+                                if (itemsInCart ==0){
+                                        JOptionPane.showMessageDialog(frame, "Empty Cart");
                                 }
-                                orderService.newOrder();
-                                textShoppingList.setText("Current Cart:\n");
+                                else {
 
+                                        orderService.finishOrder();
+
+                                        orderStructure.create(orderService.getOrder());
+                                        ordersDb.create(orderStructure);
+                                        int counter = 0;
+                                        textCheckOut.setText("");
+                                        // TODO: implement <<Data Structure>> class for use here between UI & usecase
+
+                                        ArrayList<Order> orders = ordersDb.read();
+                                        for (var o : orders) {
+                                                textCheckOut.append("Order[" + counter + "]\n" + o.getItem() + "\n" + "Sum:  " + o.getSum() + "\n" + "Date: " + getDate() + "\n\n");
+                                                counter++;
+                                        }
+                                        orderService.newOrder();
+                                        textShoppingList.setText("Current Cart:\n");
+                                        itemsInCart = 0;
+                                }
                         }
                 });
 
@@ -285,8 +293,4 @@ public class gui {
                                 break;
                 }
         }
-
-
-
-
 }

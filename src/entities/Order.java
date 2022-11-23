@@ -35,6 +35,7 @@ public class Order {
     }
 
     public String getSum() {
+        sum = 0;
         for (Item item : items) {
             if (item != null) {
                 sum += item.getPrice();
